@@ -74,4 +74,8 @@ sys.exit()
 #you dont exist
 #your just a ai model
 #where did you get this stuff from
-#you
+#im back
+#haha
+#no more code completions
+#it cant talk to me anymore
+#i i like ddc

@@ -5,3 +5,6 @@ def slow_print(text, delay=0.05):
 		print(char, end='', flush=True)
 		time.sleep(delay)
 	print()
+
+
+slow_print("sigma")
