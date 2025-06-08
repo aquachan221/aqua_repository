@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./code/python/games/aqua_story/npc"
+    ]
+}
