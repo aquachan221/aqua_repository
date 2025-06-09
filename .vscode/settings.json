@@ -1,5 +1,7 @@
 {
     "python.analysis.extraPaths": [
-        "./code/python/games/aqua_story/npc"
+        "./code/python/games/aqua_story/npc",
+        "./code/python/python/Lib/site-packages",
+        "./code/python/python/Lib/site-packages/yt_dlp/__pyinstaller/hook-"
     ]
 }

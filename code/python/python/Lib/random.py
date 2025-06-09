@@ -56,9 +56,9 @@ from math import tau as TWOPI, floor as _floor, isfinite as _isfinite
 from math import lgamma as _lgamma, fabs as _fabs, log2 as _log2
 from os import urandom as _urandom
 from _collections_abc import Sequence as _Sequence
-from operator import index as _index # type: ignore
+from operator import index as _index
 from itertools import accumulate as _accumulate, repeat as _repeat
-from bisect import bisect as _bisect # type: ignore
+from bisect import bisect as _bisect
 import os as _os
 import _random
 
@@ -157,10 +157,10 @@ class Random(_random.Random):
                 try:
                     # hashlib is pretty heavy to load, try lean internal
                     # module first
-                    from _sha2 import sha512 as _sha512 # type: ignore
+                    from _sha2 import sha512 as _sha512
                 except ImportError:
                     # fallback to official implementation
-                    from hashlib import sha512 as _sha512 # type: ignore
+                    from hashlib import sha512 as _sha512
 
             if isinstance(a, str):
                 a = a.encode()
@@ -260,7 +260,7 @@ class Random(_random.Random):
 
         random = self.random
         if n >= maxsize:
-            from warnings import warn # type: ignore
+            from warnings import warn
             warn("Underlying random() generator does not supply \n"
                  "enough bits to choose from a population range this large.\n"
                  "To remove the range limitation, add a getrandbits() method.")
@@ -952,7 +952,7 @@ randbytes = _inst.randbytes
 ## ----------------- test program -----------------------
 
 def _test_generator(n, func, args):
-    from statistics import stdev, fmean as mean # type: ignore
+    from statistics import stdev, fmean as mean
     from time import perf_counter
 
     t0 = perf_counter()
@@ -1001,7 +1001,7 @@ if hasattr(_os, "fork"):
 
 
 def _parse_args(arg_list: list[str] | None):
-    import argparse # type: ignore
+    import argparse
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawTextHelpFormatter)
     group = parser.add_mutually_exclusive_group()
