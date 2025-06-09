@@ -1,18 +1,26 @@
 import pygame
 import sys
+import os
+import platform #type: ignore
 import random #type: ignore
 from maps import *
 from class_data.warrior_stats import *
 from npc.enemy_npcs.zombie import *
+import time
+
 global zombie_colors
 walls = []
 current_map=debug_map
-walls = debug_map
+walls=debug_map
 
 window_width = grid_size * grid_width
 window_height = grid_size * grid_height
 
-zombie_color = (0, 200, 0)
+def clear():
+    if platform.system() == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 def determ_intro():
     intro_num=random.randint(0, 10)
@@ -36,33 +44,79 @@ def pause_menu(screen, clock):
             sys.exit()
 
 def starting_map(screen, clock):
-    global zombie_speed
-    # Player position in grid coordinates
+    global player_speed
     player_x, player_y = grid_width // 2, grid_height // 2
+    dash_multiplier = 2
+    dash_charges = 3
+    last_dash_time = time.time()
 
-    # Zombie position (integer grid coordinates)
-    zombie_x, zombie_y = 1, 1
-    screen.fill(bg_color)
-    draw_grid(screen)
+    font = pygame.font.SysFont(None, 24)
+
+    while True:
+        screen.fill(bg_color)
+        draw_grid(screen)
+
         # Draw walls
-    for wx, wy in walls:
-        wall_rect = pygame.Rect(wx * grid_size, wy * grid_size, grid_size, grid_size)
-        pygame.draw.rect(screen, wall_color, wall_rect)
-        # Draw player square
-        rect = pygame.Rect(player_x * grid_size, player_y * grid_size, grid_size, grid_size)
-        pygame.draw.rect(screen, square_color, rect)
-        # Draw zombie square
-        zombie_rect = pygame.Rect(zombie_x * grid_size, zombie_y * grid_size, grid_size, grid_size)
-        pygame.draw.rect(screen, zombie_color, zombie_rect)
-        # Draw zombie name
-        font = pygame.font.SysFont(None, 24)
-        name_surf = font.render("Zombie", True, (255,255,255))
-        name_rect = name_surf.get_rect(center=(zombie_x * grid_size + grid_size // 2, zombie_y * grid_size - 10))
-        screen.blit(name_surf, name_rect)
+        for wx, wy in walls:
+            wall_rect = pygame.Rect(wx * grid_size, wy * grid_size, grid_size, grid_size)
+            pygame.draw.rect(screen, wall_color, wall_rect)
+
+        # Handle player movement (WASD + Arrow Keys)
+        keys = pygame.key.get_pressed()
+        speed = 1  # Default movement speed
+        dash_used = False  # Track if a dash was used
+
+        # Check if Shift + WASD were pressed TOGETHER
+        if (keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT]) and (
+            keys[pygame.K_w] or keys[pygame.K_a] or keys[pygame.K_s] or keys[pygame.K_d]
+        ) and dash_charges > 0:
+            speed *= dash_multiplier
+            dash_charges -= 1  # Only subtract dash if WASD was used
+            last_dash_time = time.time()  # Reset recharge timer
+            dash_used = True  # Mark that a dash was used
+
+        # Restore one dash every 5 seconds
+        if time.time() - last_dash_time >= 1 and dash_charges < 3:
+            dash_charges += 1
+            last_dash_time = time.time()  # Reset timer after recharge
+
+        # Function to check if new position is valid (not a wall)
+        def is_valid_move(new_x, new_y):
+            return (new_x, new_y) not in walls
+
+        # Check move validity before applying movement
+        new_x, new_y = player_x, player_y
+        if keys[pygame.K_a] and is_valid_move(player_x - speed, player_y):  # Move left
+            new_x -= speed
+        if keys[pygame.K_d] and is_valid_move(player_x + speed, player_y):  # Move right
+            new_x += speed
+        if keys[pygame.K_w] and is_valid_move(player_x, player_y - speed):  # Move up
+            new_y -= speed
+        if keys[pygame.K_s] and is_valid_move(player_x, player_y + speed):  # Move down
+            new_y += speed
+
+        # Apply movement only if it’s valid (Prevents wall-clipping)
+        player_x, player_y = new_x, new_y
+
+        # Draw player
+        player_rect = pygame.Rect(player_x * grid_size, player_y * grid_size, grid_size, grid_size)
+        pygame.draw.rect(screen, square_color, player_rect)
+
+        # Dash Counter in lower-left corner
+        dash_surf = font.render(f"Dashes: {dash_charges}/3", True, (255,255,255))
+        screen.blit(dash_surf, (10, window_height - 30))  # Position at bottom-left
 
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(10)  # Keeps movement fast
 
+        # Handle events (quit or return to menu)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                return  # Exit back to main menu
+      
 def draw_text_centered(surface, text, y, font, color=(255,255,255)):
     text_surf = font.render(text, True, color)
     rect = text_surf.get_rect(center=(window_width // 2, y))
@@ -125,6 +179,7 @@ def main_menu(screen, clock):
             sys.exit()
 
 def start_game_menu(screen, clock):
+    clear()
     while True:
         choice = menu_loop(screen, clock, ["Online Play", "Local Play", "Back"], "Start Game")
         if choice == 0:
