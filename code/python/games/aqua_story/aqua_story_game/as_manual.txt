@@ -268,3 +268,18 @@ Ianian
 
 """
 
+Intros
+
+Cave, Vaeloria: You wake up in a dark cave, and you defeat a few enemies while getting your first weapon
+Forest, Verdastra: You wake up in a large forest, hunting the wildlife and obtaining your first weapon
+Temple, Thyraxia: You wake up in a abandoned temple, and you learn how to scavenge and fight the spirits that haunt the temple.
+Village, Vaeloria: You wake up in a ruined village, and learn to
+scavenge for useful items and obtaining your first weapon.
+Shipwreck, Verdastra
+: You wake up in a shipwreck, and learn to 
+Battlefield, Thyraxia
+Garden, Vaeloria
+Tower, Verdastra
+Mines, Thyraxia
+Ruins, Vaeloria
+Monastery, Verdastra
