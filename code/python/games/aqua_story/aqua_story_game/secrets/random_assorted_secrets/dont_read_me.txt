@@ -60,5 +60,5 @@ Agar siz buni o'qiyotgan bo'lsangiz, siz geysiz
 إذا كنت تقرأ هذا، فأنت مثلي
 𓇋𓆑𓐍𓇌𓅱𓅲𓐍𓄿𓂋𓅂𓐍𓂋𓅂𓄿𓂧𓇋𓈖𓎼𓐍𓏏𓉔𓇋𓋴𓐍𓇌𓅱𓅲𓐍𓄿𓂋𓅂𓐍𓎼𓄿𓇌
 Si hoc legis, tu gay es
-
+https://youtu.be/StjW_iuFln4?si=YD2-5msklrFBV4YV
 
