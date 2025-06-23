@@ -15,3 +15,7 @@ def about():
 @app.route('/contact')
 def contact():
     return "Contact us at contact@example.com"
+
+@app.route('/aquaos')
+def aquaos():
+    return "aquaos"
