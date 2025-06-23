@@ -1,1 +1,0 @@
-secret_races=["Zigga"]

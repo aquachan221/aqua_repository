@@ -1,1 +1,0 @@
-ranger_classes = ["26: archer", "27: marksman", "28: sniper", "29: gunslinger"]

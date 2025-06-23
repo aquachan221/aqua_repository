@@ -1,4 +1,0 @@
-steel_shortsword_damage=8
-steel_shortsword_weight=5
-steel_shortsword_durability=200
-steel_shortsword_enchantment=0

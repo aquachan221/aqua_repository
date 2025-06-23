@@ -1,1 +1,0 @@
-rogue_classes = ["30: rogue", "31: assassin", "32: trickster", "33: bounty_hunter", "34: explorer", "35: scout", "36: survivalist"]

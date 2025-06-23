@@ -1,1 +1,0 @@
-warrior_classes = ["1: gladiator", "2: bulwark", "3: berserker", "4: shadowblade"]

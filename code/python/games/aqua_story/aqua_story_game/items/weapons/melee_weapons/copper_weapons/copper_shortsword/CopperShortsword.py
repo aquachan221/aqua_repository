@@ -1,4 +1,0 @@
-copper_shortsword_damage=4
-copper_shortsword_weight=3
-copper_shortsword_durability=100
-copper_shortsword_enchantment=0

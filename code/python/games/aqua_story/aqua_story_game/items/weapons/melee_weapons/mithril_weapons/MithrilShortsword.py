@@ -1,4 +1,0 @@
-mithril_shortsword_damage=12
-mithril_shortsword_weight=7
-mithril_shortsword_durability=300
-mithril_shortsword_enchantment=0

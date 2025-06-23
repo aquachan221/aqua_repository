@@ -1,4 +1,0 @@
-etherium_shortsword_damage=20
-etherium_shortsword_weight=11
-etherium_shortsword_durability=500
-etherium_shortsword_enchantment=0

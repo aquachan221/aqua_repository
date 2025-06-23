@@ -1,4 +1,0 @@
-adamantine_shortsword_damage=18
-adamantine_shortsword_weight=10
-adamantine_shortsword_durability=450
-adamantine_shortsword_enchantment=0
