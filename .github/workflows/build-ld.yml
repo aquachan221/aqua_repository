@@ -1,0 +1,46 @@
+name: Build x86_64-elf-ld.exe
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >-
+            git
+            make
+            gcc
+            tar
+            gzip
+            bison
+            flex
+            mingw-w64-x86_64-toolchain
+
+      - name: Download and extract Binutils
+        shell: msys2 {0}
+        run: |
+          curl -LO https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.gz
+          tar -xzf binutils-2.42.tar.gz
+
+      - name: Configure and build only ld
+        shell: msys2 {0}
+        run: |
+          mkdir build && cd build
+          ../binutils-2.42/configure --target=x86_64-elf --disable-nls --disable-werror --enable-gold=no --prefix=$(pwd)/install
+          make configure-host
+          make all-ld -j$(nproc)
+          make install-ld
+
+      - name: Upload x86_64-elf-ld.exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: x86_64-elf-ld
+          path: build/install/bin/x86_64-elf-ld.exe
