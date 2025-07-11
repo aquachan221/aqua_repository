@@ -1,4 +1,0 @@
-global gdt_descriptor
-global setup_paging3
-global kernel_main
-global longmode
